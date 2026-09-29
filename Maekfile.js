@@ -27,6 +27,7 @@ if (maek.OS === "windows") {
 	maek.options.CPPFlags.push(
 		`/O2`, //optimize
 		`/D_USE_MATH_DEFINES`, //make sure M_PI exists
+		`/utf-8`, //harfbuzz headers contain UTF-8 text
 		//include paths for nest libraries:
 		`/I${NEST_LIBS}/SDL3/include`,
 		`/I${NEST_LIBS}/glm/include`,
@@ -153,7 +154,9 @@ const client_names = [
 	maek.CPP('client.cpp'),
 	maek.CPP('PlayMode.cpp'),
 	maek.CPP('LitColorTextureProgram.cpp'),
-	//maek.CPP('ColorTextureProgram.cpp'),  //not used right now, but you might want it
+	maek.CPP('ColorTextureProgram.cpp'), //used by TextRenderer
+	maek.CPP('Font.cpp'),
+	maek.CPP('TextRenderer.cpp'),
 	maek.CPP('Sound.cpp'),
 	maek.CPP('load_wav.cpp'),
 	maek.CPP('load_opus.cpp')

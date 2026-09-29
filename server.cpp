@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
 			//helper used on client close (due to quit) and server close (due to error):
 			auto remove_connection = [&](Connection *c) {
 				auto f = connection_to_player.find(c);
-				assert(f != connection_to_player.end());
+				if (f == connection_to_player.end()) return; //already removed (or never admitted)
 				game.remove_player(f->second);
 				connection_to_player.erase(f);
 			};
@@ -71,8 +71,14 @@ int main(int argc, char **argv) {
 				if (evt == Connection::OnOpen) {
 					//client connected:
 
-					//create some player info for them:
-					connection_to_player.emplace(c, game.spawn_player());
+					if (connection_to_player.size() >= Game::MaxPlayers) {
+						//table is full:
+						std::cout << "Server full; refusing connection." << std::endl;
+						c->close();
+					} else {
+						//create some player info for them:
+						connection_to_player.emplace(c, game.spawn_player());
+					}
 
 				} else if (evt == Connection::OnClose) {
 					//client disconnected:
@@ -85,7 +91,7 @@ int main(int argc, char **argv) {
 
 					//look up in players list:
 					auto f = connection_to_player.find(c);
-					assert(f != connection_to_player.end());
+					if (f == connection_to_player.end()) { c->recv_buffer.clear(); return; } //refused connection
 					Player &player = *f->second;
 
 					//handle messages from client:

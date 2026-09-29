@@ -16,3 +16,10 @@ $(DIST)/phone-bank.pnct : phone-bank.blend export-meshes.py
 
 $(DIST)/phone-bank.w : phone-bank.blend export-walkmeshes.py
     $(BLENDER) --background --python export-walkmeshes.py -- "phone-bank.blend:WalkMeshes" "$(DIST)/phone-bank.w" 
+
+$(DIST)/pots.pnct : pots.blend export-meshes.py
+    $(BLENDER) --background --python export-meshes.py -- "pots.blend:Meshes" "$(DIST)/pots.pnct"
+
+pots.blend : make-pots.py
+    $(BLENDER) --background --python make-pots.py -- pots.blend
+

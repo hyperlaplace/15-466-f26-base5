@@ -1,4 +1,4 @@
-#include "PlayMode.hpp"
+﻿#include "PlayMode.hpp"
 
 #include "Connection.hpp"
 #include "Mode.hpp"
@@ -65,8 +65,8 @@ int main(int argc, char **argv) {
 
 	//create window:
 	Mode::window = SDL_CreateWindow(
-		"gp25 game6: multiplayer", //TODO: remember to set a title for your game!
-		1280, 720, //TODO: modify window size if you'd like
+		"Pot Sumo",
+		1280, 720,
 		SDL_WINDOW_OPENGL
 		| SDL_WINDOW_RESIZABLE //uncomment to allow resizing
 		| SDL_WINDOW_HIGH_PIXEL_DENSITY //uncomment for full resolution on high-DPI screens

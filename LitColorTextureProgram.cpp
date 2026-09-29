@@ -103,7 +103,7 @@ LitColorTextureProgram::LitColorTextureProgram() {
 		"		nl *= smoothstep(LIGHT_CUTOFF,mix(LIGHT_CUTOFF,1.0,0.1), c);\n"
 		"		e = nl * LIGHT_ENERGY;\n"
 		"	} else { //(LIGHT_TYPE == 3) //directional light \n"
-		"		e = max(0.0, dot(n,-LIGHT_DIRECTION)) * LIGHT_ENERGY;\n"
+		"		e = (0.28 + 0.85 * max(0.0, dot(n,-LIGHT_DIRECTION))) * LIGHT_ENERGY;\n"
 		"	}\n"
 		"	vec4 albedo = texture(TEX, texCoord) * color;\n"
 		"	fragColor = vec4(e*albedo.rgb, albedo.a);\n"
